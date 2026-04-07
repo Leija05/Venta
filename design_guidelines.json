@@ -1,7 +1,7 @@
 {
   "theme": "Light mode default, dark mode supported via toggle.",
   "archetype": "4_swiss_high_contrast",
-  "rationale": "For an enterprise logistics system like Quimbar, trust, precision, and authority are paramount. We use a Swiss & High-Contrast archetype. The design will rely on crisp 1px borders, structural grayscale, and a sharp signal blue accent to convey an 'elite command center' feel, avoiding fluffy generic SaaS aesthetics.",
+  "rationale": "For an enterprise logistics system like Venta, trust, precision, and authority are paramount. We use a Swiss & High-Contrast archetype. The design will rely on crisp 1px borders, structural grayscale, and a sharp signal blue accent to convey an 'elite command center' feel, avoiding fluffy generic SaaS aesthetics.",
   "colors": {
     "light": {
       "background": "#FAFAFA",
@@ -33,7 +33,7 @@
       "Use 'Cabinet Grotesk' or 'Clash Display' for headings. Fallback to a geometric sans if unavailable.",
       "Use 'IBM Plex Sans' for body text to give a technical, data-driven feel.",
       "Headlines > 32px MUST use tight tracking (tracking-tight or tracking-tighter).",
-      "Overlines (e.g., 'QUIMBAR LOGISTICS') MUST be Uppercase, text-xs, with wide tracking (tracking-[0.2em]).",
+      "Overlines (e.g., 'VENTA LOGISTICS') MUST be Uppercase, text-xs, with wide tracking (tracking-[0.2em]).",
       "Do NOT center-align everything. Left-align dense content, pricing, and features for optical clarity.",
       "H1 should scale fluidly up to text-5xl or text-6xl, no larger."
     ]
@@ -75,7 +75,7 @@
   "instructions_to_main_agent": [
     "1. Initialize a React project with Tailwind CSS and Shadcn UI (Slider, Switch, Dialog, Tabs, Card, Button, Input, Label).",
     "2. Implement a Theme toggle (light/dark) in the Header.",
-    "3. Build the 'Quimbar' Pricing Calculator: Base installation is fixed at $3,600. Add inputs for licenses (monthly vs annual applies a discount) and a switch for the Premium add-on. Display the real-time sum in a prominent sticky or side-panel summary.",
+    "3. Build the 'Venta' Pricing Calculator: Base installation is fixed at $3,600. Add inputs for licenses (monthly vs annual applies a discount) and a switch for the Premium add-on. Display the real-time sum in a prominent sticky or side-panel summary.",
     "4. Create 3 Plan Cards (Esencial, Operativo, Empresarial) with their respective features.",
     "5. The 'Solicitar licencia' button should open a Modal with a summary of their configuration. The submit button in this modal MUST trigger a 'mailto:' link containing the selected plan, license count, premium status, and total price in the email body.",
     "6. Apply E1 design rules strictly: no generic blob shapes, no purple/teal gradients. Use strict 1px grid borders, stark contrast, and the specified blue primary color.",

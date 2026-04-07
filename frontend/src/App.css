@@ -1,4 +1,4 @@
-/* Quimbar Landing Page Styles */
+/* Venta Landing Page Styles */
 
 .hero-overlay {
   background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.4));
@@ -38,4 +38,35 @@
     linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
     linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Animated brand logo */
+.brand-logo {
+  overflow: visible;
+}
+
+.brand-logo path {
+  stroke-width: 85;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  fill: transparent;
+  stroke-dasharray: 2400;
+  stroke-dashoffset: 2400;
+  animation: logo-draw 2.6s ease forwards;
+}
+
+@keyframes logo-draw {
+  0% {
+    stroke-dashoffset: 2400;
+    fill: transparent;
+  }
+  82% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: currentColor;
+  }
 }
