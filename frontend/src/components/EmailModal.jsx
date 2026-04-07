@@ -47,7 +47,7 @@ export default function EmailModal({
     setEmailError('');
 
     // Build mailto body
-    let body = `Solicitud de Licencia Quimbar\n\n`;
+    let body = `Solicitud de Licencia Venta\n\n`;
     body += `Nombre/Empresa: ${name || 'No especificado'}\n`;
     body += `Correo del cliente: ${email}\n\n`;
     body += `--- Detalle del Plan ---\n`;
@@ -60,7 +60,7 @@ export default function EmailModal({
     
     body += `\nTotal primer pago: ${formatPrice(total)} MXN\n`;
 
-    const subject = encodeURIComponent(`Solicitud de Licencia Quimbar — ${name || email}`);
+    const subject = encodeURIComponent(`Solicitud de Licencia Venta — ${name || email}`);
     const encodedBody = encodeURIComponent(body);
     const ccParam = encodeURIComponent(email);
     

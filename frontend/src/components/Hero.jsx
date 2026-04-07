@@ -17,11 +17,11 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 text-white">
         <p className="uppercase text-xs tracking-[0.2em] mb-4 text-white/70 font-medium">
-          Quimbar Logistics
+          Venta Logistics
         </p>
         
         <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-balance">
-          Sistema Quimbar
+          Sistema Venta
         </h1>
         
         <p className="text-lg sm:text-xl text-white/80 mb-6 max-w-xl">
