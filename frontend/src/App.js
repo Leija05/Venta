@@ -115,9 +115,14 @@ function App() {
     setIncludePremium(true);
     setSelectedPremium(0);
     setPromoApplied(true);
+    toast.success("¡Promo de arranque aplicada!");
+  };
+
+  const handleLicenseRequestSent = () => {
+    if (!promoApplied || promoUsed) return;
     setPromoUsed(true);
     localStorage.setItem(PROMO_STORAGE_KEY, 'true');
-    toast.success("¡Promo de arranque aplicada!");
+    toast.success("Promo bloqueada: ya fue usada en tu solicitud enviada.");
   };
 
   // Select package
@@ -240,6 +245,7 @@ function App() {
         licenseLabel={LICENSE_OPTIONS[selectedLicense].label}
         premiumLabel={includePremium ? PREMIUM_OPTIONS[selectedPremium].label : null}
         promoApplied={promoApplied}
+        onRequestSent={handleLicenseRequestSent}
       />
       
       <Toaster position="bottom-center" />

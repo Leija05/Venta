@@ -31,6 +31,7 @@ export default function EmailModal({
   licenseLabel,
   premiumLabel,
   promoApplied,
+  onRequestSent,
 }) {
   const [contactMethod, setContactMethod] = useState('email');
   const [email, setEmail] = useState('');
@@ -73,6 +74,7 @@ export default function EmailModal({
     
     // Show success state
     setShowSuccess(true);
+    if (typeof onRequestSent === 'function') onRequestSent();
     toast.success('¡Correo preparado! Revisa tu cliente de correo.');
   };
 
@@ -91,6 +93,7 @@ export default function EmailModal({
     body += `%0ATotal primer pago: ${formatPrice(total)} MXN`;
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${body}`;
     window.open(whatsappLink, '_blank');
+    if (typeof onRequestSent === 'function') onRequestSent();
     toast.success('Abriendo WhatsApp con tu solicitud.');
   };
 
