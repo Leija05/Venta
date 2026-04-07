@@ -33,6 +33,8 @@ const PREMIUM_OPTIONS = [
 
 const BASE_INSTALL_PRICE = 3600;
 const CONTACT_EMAIL = 'leijahector5@gmail.com';
+const WHATSAPP_NUMBER = '528674718298';
+const PROMO_STORAGE_KEY = 'ventaPromoUsed';
 
 function App() {
   // Theme state
@@ -44,6 +46,7 @@ function App() {
   const [includePremium, setIncludePremium] = useState(false);
   const [selectedPremium, setSelectedPremium] = useState(0);
   const [promoApplied, setPromoApplied] = useState(false);
+  const [promoUsed, setPromoUsed] = useState(false);
   
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,6 +59,13 @@ function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [isDark]);
+
+  useEffect(() => {
+    const savedPromoStatus = localStorage.getItem(PROMO_STORAGE_KEY);
+    if (savedPromoStatus === 'true') {
+      setPromoUsed(true);
+    }
+  }, []);
 
   // Calculate prices
   const calculatePrices = useCallback(() => {
@@ -96,10 +106,17 @@ function App() {
 
   // Apply promo
   const applyPromo = () => {
+    if (promoUsed) {
+      toast.error("Esta promo ya fue utilizada en este dispositivo.");
+      return;
+    }
+
     setIncludeInstall(true);
     setIncludePremium(true);
     setSelectedPremium(0);
     setPromoApplied(true);
+    setPromoUsed(true);
+    localStorage.setItem(PROMO_STORAGE_KEY, 'true');
     toast.success("¡Promo de arranque aplicada!");
   };
 
@@ -175,7 +192,7 @@ function App() {
       <main>
         <Hero />
         
-        <PromoSection onApplyPromo={applyPromo} promoApplied={promoApplied} />
+        <PromoSection onApplyPromo={applyPromo} promoApplied={promoApplied || promoUsed} />
         
         <ScopeSection />
         
@@ -219,6 +236,7 @@ function App() {
         summary={buildSummary()}
         total={prices.total}
         contactEmail={CONTACT_EMAIL}
+        whatsappNumber={WHATSAPP_NUMBER}
         licenseLabel={LICENSE_OPTIONS[selectedLicense].label}
         premiumLabel={includePremium ? PREMIUM_OPTIONS[selectedPremium].label : null}
         promoApplied={promoApplied}
