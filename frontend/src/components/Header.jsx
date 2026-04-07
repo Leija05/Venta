@@ -9,7 +9,7 @@ export default function Header({ isDark, setIsDark }) {
         {/* Logo */}
         <div className="flex items-center gap-2">
           <BrandLogo
-            className={`h-9 w-auto transition-colors duration-300 ${isDark ? 'text-white' : 'text-zinc-900'}`}
+            className={`h-14 w-auto transition-colors duration-300 ${isDark ? 'text-white' : 'text-zinc-900'}`}
           />
           <div>
             <span className="hidden sm:inline text-xs text-muted-foreground ml-2 uppercase tracking-[0.15em]">

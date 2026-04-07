@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Send, CheckCircle, X } from 'lucide-react';
+import { Send, CheckCircle, Mail, MessageCircle } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -27,10 +27,13 @@ export default function EmailModal({
   summary,
   total,
   contactEmail,
+  whatsappNumber,
   licenseLabel,
   premiumLabel,
   promoApplied,
+  onRequestSent,
 }) {
+  const [contactMethod, setContactMethod] = useState('email');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
@@ -71,11 +74,32 @@ export default function EmailModal({
     
     // Show success state
     setShowSuccess(true);
+    if (typeof onRequestSent === 'function') onRequestSent();
     toast.success('¡Correo preparado! Revisa tu cliente de correo.');
+  };
+
+  const handleWhatsApp = () => {
+    let body = `Hola, quiero solicitar mi licencia de Venta.%0A%0A`;
+    body += `Nombre/Empresa: ${name || 'No especificado'}%0A`;
+    body += `Correo: ${email || 'No especificado'}%0A%0A`;
+    body += `Detalle del plan:%0A`;
+
+    summary.forEach((item) => {
+      body += `- ${item.label}: ${formatPrice(item.price)}`;
+      if (item.note) body += ` (${item.note})`;
+      body += `%0A`;
+    });
+
+    body += `%0ATotal primer pago: ${formatPrice(total)} MXN`;
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${body}`;
+    window.open(whatsappLink, '_blank');
+    if (typeof onRequestSent === 'function') onRequestSent();
+    toast.success('Abriendo WhatsApp con tu solicitud.');
   };
 
   const handleClose = () => {
     setShowSuccess(false);
+    setContactMethod('email');
     setEmail('');
     setName('');
     setEmailError('');
@@ -108,10 +132,31 @@ export default function EmailModal({
               </div>
             </div>
 
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <Button
+                type="button"
+                variant={contactMethod === 'email' ? 'default' : 'outline'}
+                className="rounded-sm"
+                onClick={() => setContactMethod('email')}
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                Correo
+              </Button>
+              <Button
+                type="button"
+                variant={contactMethod === 'whatsapp' ? 'default' : 'outline'}
+                className="rounded-sm"
+                onClick={() => setContactMethod('whatsapp')}
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                WhatsApp
+              </Button>
+            </div>
+
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="userEmail">Tu correo electrónico *</Label>
+                <Label htmlFor="userEmail">Tu correo electrónico {contactMethod === 'email' ? '*' : '(opcional)'}</Label>
                 <Input
                   id="userEmail"
                   data-testid="user-email-input"
@@ -122,7 +167,7 @@ export default function EmailModal({
                     setEmail(e.target.value);
                     if (emailError) setEmailError('');
                   }}
-                  required
+                  required={contactMethod === 'email'}
                   className={`rounded-sm ${emailError ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 />
                 {emailError && (
@@ -143,15 +188,28 @@ export default function EmailModal({
                 />
               </div>
 
-              <Button
-                type="submit"
-                data-testid="submit-request-btn"
-                className="w-full rounded-sm"
-                size="lg"
-              >
-                <Send className="w-4 h-4 mr-2" />
-                Enviar Solicitud
-              </Button>
+              {contactMethod === 'email' ? (
+                <Button
+                  type="submit"
+                  data-testid="submit-request-btn"
+                  className="w-full rounded-sm"
+                  size="lg"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  Enviar por Correo
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  data-testid="submit-whatsapp-btn"
+                  className="w-full rounded-sm"
+                  size="lg"
+                  onClick={handleWhatsApp}
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Enviar por WhatsApp
+                </Button>
+              )}
             </form>
           </>
         ) : (
